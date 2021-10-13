@@ -10,7 +10,7 @@ def view_menu():
     print("5 - Delete directory")
     print("6 - Delete file")
     print("7 - Open file")
-    print("q - Close program")
+    print("q/Q - Close program")
 
 
 def create_dir(path):
@@ -105,7 +105,7 @@ if __name__ == '__main__':
         if choice.isdigit():
             choice = int(choice)
         else:
-            if choice == 'q':
+            if choice == 'q' or choice == "Q":
                 sys.exit(0)
             else:
                 print("Something is wrong")
