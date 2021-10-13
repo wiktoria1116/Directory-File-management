@@ -10,6 +10,7 @@ def view_menu():
     print("5 - Delete directory")
     print("6 - Delete file")
     print("7 - Open file")
+    print("q - Close program")
 
 
 def create_dir(path):
@@ -92,14 +93,22 @@ def main_fun(num):
         path = input()
         open_file(path)
     else:
-        print("OK")
+        print("Something is wrong")
 
 
 if __name__ == '__main__':
     view_menu()
 
-    while 1:
+    while True:
         print("Enter number: ")
-        number = int(input())
-        main_fun(number)
+        choice = input()
+        if choice.isdigit():
+            choice = int(choice)
+        else:
+            if choice == 'q':
+                sys.exit(0)
+            else:
+                print("Something is wrong")
+        main_fun(choice)
+
 
