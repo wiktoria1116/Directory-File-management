@@ -1,8 +1,10 @@
 import os
 import sys
+import time
 
 
 def view_menu():
+    print("Application features:")
     print("1 - Create directory")
     print("2 - Create file")
     print("3 - Rename file or directory")
@@ -17,11 +19,14 @@ def create_dir(path):
     try:
         os.mkdir(path)
     except FileExistsError:
-        print("Directory already exists")
+        print("Wrong path or directory already exists")
 
 
 def create_file(path):
-    f = open(path, "w+")
+    try:
+        f = open(path, "w+")
+    except FileExistsError:
+        print("Wrong path or file already exists")
 
 
 def rename_file_or_dir(name, new_name):
@@ -31,13 +36,12 @@ def rename_file_or_dir(name, new_name):
         print(sys.exc_info())
 
 
-def print_current_work_directory():
-    print(os.getcwd())
-
-
 def list_files_in_directory(path):
-    print(os.listdir(path))
-    print(len(os.listdir(path)))
+    try:
+        print(os.listdir(path))
+        print(len(os.listdir(path)))
+    except:
+        print("Wrong path")
 
 
 def delete_dir(dir_path):
@@ -56,9 +60,12 @@ def delete_file(file_path):
 
 
 def open_file(path):
-    tx = open(path, "r")
-    for data in tx:
-        print(data)
+    try:
+        tx = open(path, "r")
+        for data in tx:
+            print(data)
+    except:
+        print("File does not exist")
 
 
 def main_fun(num):
@@ -93,14 +100,17 @@ def main_fun(num):
         path = input()
         open_file(path)
     else:
-        print("Something is wrong")
+        print("This statement does not exist")
+        print("Try again!")
+        print()
+        time.sleep(1)
 
 
 if __name__ == '__main__':
-    view_menu()
 
     while True:
-        print("Enter number: ")
+        view_menu()
+        print("Enter choice: ")
         choice = input()
         if choice.isdigit():
             choice = int(choice)
@@ -108,7 +118,9 @@ if __name__ == '__main__':
             if choice == 'q' or choice == "Q":
                 sys.exit(0)
             else:
-                print("Something is wrong")
+                print("Unrecognized command")
+                time.sleep(1)
+
         main_fun(choice)
 
 
