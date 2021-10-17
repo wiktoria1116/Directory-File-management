@@ -1,6 +1,6 @@
 import os
 import sys
-import time
+import keyboard
 
 
 def view_menu():
@@ -100,10 +100,7 @@ def main_fun(num):
         path = input()
         open_file(path)
     else:
-        print("This statement does not exist")
-        print("Try again!")
-        print()
-        time.sleep(1)
+        print("This statement does not exist, Try again! \n")
 
 
 if __name__ == '__main__':
@@ -118,9 +115,9 @@ if __name__ == '__main__':
             if choice == 'q' or choice == "Q":
                 sys.exit(0)
             else:
-                print("Unrecognized command")
-                time.sleep(1)
-
+                print("Unrecognized command. Press enter and try again!")
+                keyboard.wait('enter')
+                # input("Press enter to try again!")
         main_fun(choice)
 
 
