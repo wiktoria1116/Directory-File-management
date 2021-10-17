@@ -117,7 +117,6 @@ if __name__ == '__main__':
             else:
                 print("Unrecognized command. Press enter and try again!")
                 keyboard.wait('enter')
-                # input("Press enter to try again!")
         main_fun(choice)
 
 
