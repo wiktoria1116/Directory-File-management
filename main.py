@@ -1,6 +1,7 @@
 import os
 import sys
 import keyboard
+import argparse
 
 
 def view_menu():
@@ -103,20 +104,41 @@ def main_fun(num):
         print("This statement does not exist, Try again! \n")
 
 
-if __name__ == '__main__':
+def get_createdir():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--create_dir', '-crd', action='store_true', help='create directory')
+    parser.add_argument('--output_directory', '-oud', type=str, help='file path', default=None)
+    args = parser.parse_args()
+    return args.create_dir, args.output_directory
 
-    while True:
-        view_menu()
-        print("Enter choice: ")
-        choice = input()
-        if choice.isdigit():
-            choice = int(choice)
-        else:
-            if choice == 'q' or choice == "Q":
-                sys.exit(0)
+
+def createdir_parser(path):
+    if path is not None:
+        create_dir(path)
+    else:
+        print("Parameter is not specified")
+
+
+if __name__ == '__main__':
+    createdir_state, createdir_path = get_createdir()
+
+    if createdir_state is True:
+        createdir_parser(createdir_path)
+    else:
+        while True:
+            view_menu()
+            print("Enter choice or command: ")
+            choice = input()
+            if choice.isdigit():
+                choice = int(choice)
             else:
-                print("Unrecognized command. Press enter and try again!")
-                keyboard.wait('enter')
-        main_fun(choice)
+                if choice == 'q' or choice == "Q":
+                    sys.exit(0)
+                else:
+                    print("Unrecognized command. Press enter and try again!")
+                    keyboard.wait('enter')
+            main_fun(choice)
+
+
 
 
