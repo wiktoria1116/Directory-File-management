@@ -104,14 +104,6 @@ def main_fun(num):
         print("This statement does not exist, Try again! \n")
 
 
-def get_createdir():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--create_dir', '-crd', action='store_true', help='create directory')
-    parser.add_argument('--output_directory', '-oud', type=str, help='file path', default=None)
-    args = parser.parse_args()
-    return args.create_dir, args.output_directory
-
-
 def createdir_parser(path):
     if path is not None:
         create_dir(path)
@@ -119,15 +111,93 @@ def createdir_parser(path):
         print("Parameter is not specified")
 
 
-if __name__ == '__main__':
-    createdir_state, createdir_path = get_createdir()
+def createfile_parser(path):
+    if path is not None:
+        create_file(path)
+    else:
+        print("Parameter is not specified")
 
-    if createdir_state is True:
-        createdir_parser(createdir_path)
+
+def deletedir_parser(path):
+    if path is not None:
+        delete_dir(path)
+    else:
+        print("Parameter is not specified")
+
+
+def deletefile_parser(path):
+    if path is not None:
+        delete_file(path)
+    else:
+        print("Parameter is not specified")
+
+
+def openfile_parser(path):
+    if path is not None:
+        open_file(path)
+    else:
+        print("Parameter is not specified")
+
+
+def rename_file_or_dir_parser(path, new_path):
+    if path is not None and new_path is not None:
+        rename_file_or_dir(path, new_path)
+    else:
+        print("Parameter is not specified")
+
+
+def list_files_in_directory_parser(path):
+    if path is not None:
+        list_files_in_directory(path)
+    else:
+        print("Wrong path")
+
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--open_file', '-opf', action='store_true', help='open file')
+    parser.add_argument('--output_openfile', '-oof', type=str, help='file path', default=None)
+
+    parser.add_argument('--delete_file', '-delf', action='store_true', help='delete file')
+    parser.add_argument('--output_del_file', '-odf', type=str, help='file path', default=None)
+
+    parser.add_argument('--delete_dir', '-deld', action='store_true', help='delete directory')
+    parser.add_argument('--output_del_dir', '-odd', type=str, help='directory path', default=None)
+
+    parser.add_argument('--create_file', '-crf', action='store_true', help='create file')
+    parser.add_argument('--output_file', '-ouf', type=str, help='file path', default=None)
+
+    parser.add_argument('--create_dir', '-crd', action='store_true', help='create directory')
+    parser.add_argument('--output_directory', '-oud', type=str, help='file path', default=None)
+
+    parser.add_argument('--rename_file_or_dir', '-crfd', action='store_true', help='Rename file or directory')
+    parser.add_argument('--output_name', '-oname', type=str, help='file path', default=None)
+    parser.add_argument('--output_new_name', '-onewn', type=str, help='file path', default=None)
+
+    parser.add_argument('--list_files', '-lfile', action='store_true', help='Rename file or directory')
+    parser.add_argument('--output_list_files', '-olfile', type=str, help='file path', default=None)
+
+    args = parser.parse_args()
+
+    if args.open_file is True:
+        openfile_parser(args.output_openfile)
+    elif args.delete_file is True:
+        deletefile_parser(args.output_del_file)
+    elif args.create_file is True:
+        createfile_parser(args.output_file)
+    elif args.create_dir is True:
+        createdir_parser(args.output_directory)
+    elif args.delete_dir is True:
+        deletedir_parser(args.output_del_dir)
+    elif args.rename_file_or_dir is True:
+        rename_file_or_dir_parser(args.output_name, args.output_new_name)
+    elif args.list_files is True:
+        list_files_in_directory_parser(args.output_list_files)
     else:
         while True:
             view_menu()
-            print("Enter choice or command: ")
+            print("Enter choice: ")
             choice = input()
             if choice.isdigit():
                 choice = int(choice)
@@ -138,7 +208,3 @@ if __name__ == '__main__':
                     print("Unrecognized command. Press enter and try again!")
                     keyboard.wait('enter')
             main_fun(choice)
-
-
-
-
